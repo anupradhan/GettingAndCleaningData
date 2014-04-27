@@ -18,3 +18,10 @@ x_train <- read.table(file="train/X_train.txt")
 y_train <- read.table(file="train/y_train.txt")
 subject_train <- read.table(file="train/subject_train.txt")
 
+## binding columns y_test and subject_test
+test_temp <- cbind(y_test, subject_test) 
+colnames(test_temp) <- c("Acitivity","Subject")
+
+## binding columns y_train and subject_train
+train_temp <- cbind(y_train, subject_train) 
+colnames(train_temp) <- c("Acitivity","Subject")
