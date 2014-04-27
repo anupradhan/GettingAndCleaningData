@@ -26,6 +26,7 @@ colnames(test_temp) <- c("Activity_ID","Subject")
 train_temp <- cbind(y_train, subject_train) 
 colnames(train_temp) <- c("Activity_ID","Subject")
 
+## Merge training and test datasets
 activity_subject <- rbind(train_temp,test_temp)
 x_variables <- rbind(x_train, x_test)
 
