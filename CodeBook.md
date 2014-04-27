@@ -42,5 +42,30 @@ colnames(train_temp) <- c("Activity_ID","Subject")
 ## Merge training and test datasets
 activity_subject <- rbind(train_temp,test_temp)
 x_variables <- rbind(x_train, x_test)
-``` 
+```
+
+5) Read feature.txt file to get feature names and assign to x_variables
+``` code
+## reading features.txt to get feature names and assigning to x_variables
+featurenames <- read.table(file="features.txt", stringsAsFactors=FALSE)
+colnames(x_variables) <- featurenames[,2]
+```
+
+6) Identify mean and std columns and only use those columns.  Merge raw dataset (x_variables) with activity_subject.
+```code
+## identifying column names that are associated with mean 
+meanColnames <- featurenames[grep("mean()", featurenames[,2], fixed=TRUE),2]
+
+## identifying column names that are associated with std
+stdColnames <- featurenames[grep("std()", featurenames[,2], fixed=TRUE),2]
+
+## Extracting columns associated with mean and std 
+x_variables <- x_variables[,c(meanColnames, stdColnames)]
+
+## merging x_variables with activity_subject 
+dataset <- cbind(x_variables, activity_subject)
+```
+7) 
+
+
 
