@@ -25,3 +25,15 @@ colnames(test_temp) <- c("Acitivity","Subject")
 ## binding columns y_train and subject_train
 train_temp <- cbind(y_train, subject_train) 
 colnames(train_temp) <- c("Acitivity","Subject")
+
+activity_subject <- rbind(train_temp,test_temp)
+x_variables <- rbind(x_train, x_test)
+
+## removing unnecessary variables to conserve memory
+rm(list=c("y_test","subject_test","y_train","subject_train", "train_temp","test_temp", "x_test", "x_train"))
+
+## reading features.txt to get feature names and assigning to x_variables
+featurenames <- read.table(file="features.txt", stringsAsFactors=FALSE)
+colnames(x_variables) <- featurenames[,2]
+
+
