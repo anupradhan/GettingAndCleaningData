@@ -90,7 +90,7 @@ finalData$Activity_ID <- NULL
 10) Write the final tidy output to a CSV file using write.table command
 ```code
 ## writing the final output to csv file
-write.table(finalData, file="finaloutput.txt", col.names=TRUE, row.names=FALSE, sep=",")
+write.table(finalData, file="../tidydataset.txt", col.names=TRUE, row.names=FALSE, sep=",")
 ```
 
 
