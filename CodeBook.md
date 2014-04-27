@@ -25,4 +25,22 @@ y_train <- read.table(file="train/y_train.txt")
 subject_train <- read.table(file="train/subject_train.txt")
 ``` 
 
-3) 
+3) Combine columns of y_test and subject_test and assign column names "Activity_ID" and "Subject".  Do the same y_train and subject_train. 
+
+``` code
+## binding columns y_test and subject_test
+test_temp <- cbind(y_test, subject_test) 
+colnames(test_temp) <- c("Activity_ID","Subject")
+
+## binding columns y_train and subject_train
+train_temp <- cbind(y_train, subject_train) 
+colnames(train_temp) <- c("Activity_ID","Subject")
+```
+
+4) Merge training and testdatasets using rbind method. 
+``` code
+## Merge training and test datasets
+activity_subject <- rbind(train_temp,test_temp)
+x_variables <- rbind(x_train, x_test)
+``` 
+
