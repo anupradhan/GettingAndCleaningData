@@ -62,5 +62,5 @@ finalData <- merge(avg_dataset, activity_labels, by.x="Activity_ID", by.y="Activ
 finalData$Activity_ID <- NULL
 
 ## writing the final output to csv file
-write.table(finalData, file="finaloutput.txt", col.names=TRUE, row.names=FALSE, sep=",")
+write.table(finalData, file="../tidydataset.txt", col.names=TRUE, row.names=FALSE, sep=",")
 
