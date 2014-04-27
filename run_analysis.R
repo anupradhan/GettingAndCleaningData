@@ -1,3 +1,5 @@
+setwd("/Users/anupradhan/Google Drive/Online Courses/DataScienceSpecialization/GettingAndCleaningData/PeerAssignment")
+
 ## code snippet to download and unzip file if it is not downloaded and unzipped
 if (!file.exists("UCI HAR Dataset")){
     fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
@@ -45,9 +47,20 @@ stdColnames <- featurenames[grep("std()", featurenames[,2], fixed=TRUE),2]
 ## Extracting columns associated with mean and std 
 x_variables <- x_variables[,c(meanColnames, stdColnames)]
 
+## merging x_variables with activity_subject 
+dataset <- cbind(x_variables, activity_subject)
+
 ## reading activity_labels.txt
 activity_labels <- read.table(file="activity_labels.txt")
 colnames(activity_labels) <- c("Activity_ID", "Activity_Label")
-temp <- merge(activity_subject, activity_labels, by.x="Activity_ID", by.y="Activity_ID")
+
+#split based on activity subject and ID
+split_Act_Subject <- split(dataset, list(dataset$Activity_ID, dataset$Subject))
+avg_dataset <- t(sapply(split_Act_Subject, colMeans))
+
+## Assigning labels to activity id and removing activity id column with null assignment
+avg_dataset_withlabel <- merge(avg_dataset, activity_labels, by.x="Activity_ID", by.y="Activity_ID")
+avg_dataset_withlabel$Activity_ID <- NULL
+
 
 
