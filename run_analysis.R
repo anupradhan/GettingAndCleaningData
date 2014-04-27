@@ -1,5 +1,3 @@
-setwd("/Users/anupradhan/Google Drive/Online Courses/DataScienceSpecialization/GettingAndCleaningData/PeerAssignment")
-
 ## code snippet to download and unzip file if it is not downloaded and unzipped
 if (!file.exists("UCI HAR Dataset")){
     fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
@@ -59,8 +57,9 @@ split_Act_Subject <- split(dataset, list(dataset$Activity_ID, dataset$Subject))
 avg_dataset <- t(sapply(split_Act_Subject, colMeans))
 
 ## Assigning labels to activity id and removing activity id column with null assignment
-avg_dataset_withlabel <- merge(avg_dataset, activity_labels, by.x="Activity_ID", by.y="Activity_ID")
-avg_dataset_withlabel$Activity_ID <- NULL
+finalData <- merge(avg_dataset, activity_labels, by.x="Activity_ID", by.y="Activity_ID")
+finalData$Activity_ID <- NULL
 
-
+## writing the final output to csv file
+write.table(finalData, file="finaloutput.csv", col.names=TRUE, row.names=FALSE, sep=",")
 
