@@ -65,7 +65,33 @@ x_variables <- x_variables[,c(meanColnames, stdColnames)]
 ## merging x_variables with activity_subject 
 dataset <- cbind(x_variables, activity_subject)
 ```
-7) 
+
+7) Read activity_labels.txt and assign colnames to the activity_label variable
+```code
+## reading activity_labels.txt
+activity_labels <- read.table(file="activity_labels.txt")
+colnames(activity_labels) <- c("Activity_ID", "Activity_Label")
+```
+
+8)  Average of each variable for each activity and each subject. This is done using split function and sapply.  One has to tranform the matrix using t command.
+```code
+#split based on activity subject and ID
+split_Act_Subject <- split(dataset, list(dataset$Activity_ID, dataset$Subject))
+avg_dataset <- t(sapply(split_Act_Subject, colMeans))
+```
+
+9) Appropriately labels the data set with descriptive activity names. 
+```code
+## Assigning labels to activity id and removing activity id column with null assignment
+finalData <- merge(avg_dataset, activity_labels, by.x="Activity_ID", by.y="Activity_ID")
+finalData$Activity_ID <- NULL
+```
+
+10) Write the final tidy output to a CSV file using write.table command
+```code
+## writing the final output to csv file
+write.table(finalData, file="finaloutput.txt", col.names=TRUE, row.names=FALSE, sep=",")
+```
 
 
 
